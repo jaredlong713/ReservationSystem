@@ -9,6 +9,26 @@ namespace ReservationSystem.DATA.EF
 {
     class ReservationSystemMetadata
     {
+        [MetadataType(typeof(UserFamilyMemberMetaData))]
+        public partial class UserFamilyMember { }
+        public class UserFamilyMemberMetaData
+        {
+            [Required(ErrorMessage = "* Family Member Name is required")]
+            [Display(Name = "Family Member Name")]
+            public string MemberName { get; set; }
+
+            [Display(Name = "User")]
+            public string UserId { get; set; }
+
+            public string Photo { get; set; }
+
+            [Display(Name = "Notes")]
+            [UIHint("MultilineText")]
+            public string SpecialNotes { get; set; }
+
+        }
+
+
         [MetadataType(typeof(RoomMetadata))]
         public partial class Room { }
         public class RoomMetadata

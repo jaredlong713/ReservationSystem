@@ -15,7 +15,7 @@ namespace ReservationSystem.DATA.EF
     public partial class Reservation
     {
         public int ReservationId { get; set; }
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public System.DateTime ReservationDate { get; set; }
         public int ReservationLength { get; set; }
         public int RoomId { get; set; }
@@ -25,6 +25,6 @@ namespace ReservationSystem.DATA.EF
         public string SpecialRequests { get; set; }
     
         public virtual Room Room { get; set; }
-        public virtual UserDetail UserDetail { get; set; }
+        public virtual UserFamilyMember UserFamilyMember { get; set; }
     }
 }
