@@ -30,9 +30,16 @@
                     <nav class="main_nav">
                         <ul class="d-flex flex-row align-items-start justify-content-start">
                             <li class="active"><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About us</a></li>
-                            <li><a href="#">Rooms</a></li>
-                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="@Url.Action("Index", "Rooms", new { id = 1 })">East Rooms</a></li>
+                            <li><a href="@Url.Action("Index", "Rooms", new { id = 2 })">West Rooms</a></li>
+                            @if (Request.IsAuthenticated && User.IsInRole("Customer"))
+                            {
+                                <li><a href="@Url.Action("Index", "UserFamilyMembers")">Family</a></li>
+                            }
+                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <li><a href="@Url.Action("Index", "Locations")">Location</a></li>
+                            }
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </nav>

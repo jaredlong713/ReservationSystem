@@ -9,16 +9,13 @@ namespace ReservationSystem.DATA.EF
 {
     class ReservationSystemMetadata
     {
-        [MetadataType(typeof(UserFamilyMemberMetaData))]
+        [MetadataType(typeof(UserFamilyMemberMetadata))]
         public partial class UserFamilyMember { }
-        public class UserFamilyMemberMetaData
+        public class UserFamilyMemberMetadata
         {
             [Required(ErrorMessage = "* Family Member Name is required")]
             [Display(Name = "Family Member Name")]
             public string MemberName { get; set; }
-
-            [Display(Name = "User")]
-            public string UserId { get; set; }
 
             public string Photo { get; set; }
 
@@ -33,6 +30,10 @@ namespace ReservationSystem.DATA.EF
         public partial class Room { }
         public class RoomMetadata
         {
+            [Required(ErrorMessage = "* Room Type is required")]
+            [Display(Name = "Room Type")]
+            public string RoomType { get; set; }
+
             [Required(ErrorMessage = "* Room Description is required")]
             [Display(Name = "Room Description")]
             public string RoomDescription { get; set; }
@@ -47,6 +48,17 @@ namespace ReservationSystem.DATA.EF
 
             [Display(Name = "Is Available")]
             public bool IsAvailable { get; set; }
+
+            [Required(ErrorMessage = "* Room Photo is required")]
+            public string Photo { get; set; }
+
+            [Required(ErrorMessage = "* Rooms Available is required")]
+            [Display(Name = "Number of Rooms Available")]
+            public bool RoomsAvailable { get; set; }
+
+            [Required(ErrorMessage = "* Rooms Taken is required")]
+            [Display(Name = "Number of Rooms Taken")]
+            public bool RoomsTaken { get; set; }
         }
 
         [MetadataType(typeof(ReservationMetadata))]
@@ -103,9 +115,6 @@ namespace ReservationSystem.DATA.EF
 
             [Required(ErrorMessage = "* State is required")]
             public string State { get; set; }
-
-            [Required(ErrorMessage = "* Reservation limit must be set")]
-            public byte ReservationLimit { get; set; }
         }
     }
 }

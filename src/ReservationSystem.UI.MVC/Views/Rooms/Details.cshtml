@@ -1,0 +1,82 @@
+﻿@model ReservationSystem.DATA.EF.Room
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Room</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxOccupancy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxOccupancy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomPhoto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomPhoto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomsAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomsAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomsTaken)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomsTaken)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location.LocationName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RoomId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

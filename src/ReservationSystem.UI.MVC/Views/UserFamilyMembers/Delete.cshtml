@@ -1,0 +1,79 @@
+﻿@model ReservationSystem.DATA.EF.UserFamilyMember
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="home">
+    <div class="background_image" style="background-image:url(../../Content/images/about.jpg)"></div>
+    <div class="home_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="home_content text-center">
+                        <div class="home_title">Delete Family Member</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <br/>
+    <h3>Are you sure you want to delete @Model.MemberName?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.MemberName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MemberName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Photo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Photo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SpecialNotes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SpecialNotes)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserDetail.FirstName)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-10">
+                        <input type="submit" value="Delete" class="button button_1" />
+                        <br /><br />
+                    </div>
+
+                    <div class=" col-md-3 col-lg-2">
+                        <div class="button button_4"><a href="@Url.Action("Index", "UserFamilyMembers")">Back to Family</a></div>
+                        <br /><br />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

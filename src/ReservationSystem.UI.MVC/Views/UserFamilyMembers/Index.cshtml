@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ReservationSystem.DATA.EF.UserFamilyMember>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="home">
+    <div class="background_image" style="background-image:url(Content/images/about.jpg)"></div>
+    <div class="home_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="home_content text-center">
+                        <div class="home_title">Family</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="testimonials">
+    <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="~/Content/images/testimonials.jpg" data-speed="0.8"></div>
+    <div class="testimonials_overlay"></div>
+
+    <div class="container">
+        <div class="col-xl-12">
+            <h3 style="color: #ffa37b;"> @Model.Count() Family members</h3>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="testimonials_slider_container">
+                    <div class="owl-carousel owl-theme test_slider">
+                        @foreach (var item in Model)
+                        {
+                            <!-- Slide -->
+                            <div class="test_slider_item text-center">
+                                <div class="testimonial_title"><a href="#"> @item.MemberName</a></div>
+                                <div class="testimonial_text">
+                                    <p>@item.SpecialNotes</p>
+                                </div>
+                                <div class="testimonial_image"><img src="~/Content/images/family/@item.Photo" alt=""></div>
+                                    <div class="container" style="padding-top: 15px; ">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <h4><a href="@Url.Action("Edit", "UserFamilyMembers", new { id = item.UserFamilyMemberId })" style="color: #ffa37b">Edit</a></h4>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h4><a href="@Url.Action("Delete", "UserFamilyMembers", new { id = item.UserFamilyMemberId })" style="color: #ffa37b">Delete</a></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div style="padding-top: 15px; ">
+                <div class="button button_1"><a href="@Url.Action("Create", "UserFamilyMembers")">Add New</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using ReservationSystem.DATA.EF;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,6 +13,8 @@ namespace IdentitySample.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ReservationEntities db = new ReservationEntities();
+
         public AccountController()
         {
         }
@@ -151,8 +154,19 @@ namespace IdentitySample.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    var roles = await UserManager.AddToRolesAsync(user.Id, "Customer");
+
+                    UserDetail userDetail = new UserDetail();
+                    userDetail.UserId = user.Id;
+                    userDetail.FirstName = model.FirstName;
+                    userDetail.LastName = model.LastName;
+
+                    db.UserDetails.Add(userDetail);
+                    db.SaveChanges();
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");

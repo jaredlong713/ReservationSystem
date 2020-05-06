@@ -26,7 +26,6 @@ namespace ReservationSystem.DATA.EF
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        public byte ReservationLimit { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Room> Rooms { get; set; }
