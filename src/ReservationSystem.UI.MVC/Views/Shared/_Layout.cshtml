@@ -25,13 +25,12 @@
 
         <header class="header">
             <div class="header_content d-flex flex-row align-items-center justify-content-start">
-                <div class="logo"><a href="#">The River</a></div>
+                <div class="logo"><a href="@Url.Action("Index", "Home")">The River</a></div>
                 <div class="ml-auto d-flex flex-row align-items-center justify-content-start">
                     <nav class="main_nav">
                         <ul class="d-flex flex-row align-items-start justify-content-start">
-                            <li class="active"><a href="index.html">Home</a></li>
-                            <li><a href="@Url.Action("Index", "Rooms", new { id = 1 })">East Rooms</a></li>
-                            <li><a href="@Url.Action("Index", "Rooms", new { id = 2 })">West Rooms</a></li>
+                            <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                            <li><a href="@Url.Action("Index", "Rooms")">Rooms</a></li>
                             @if (Request.IsAuthenticated && User.IsInRole("Customer"))
                             {
                                 <li><a href="@Url.Action("Index", "UserFamilyMembers")">Family</a></li>

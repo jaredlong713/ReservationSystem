@@ -4,79 +4,92 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Room</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RoomDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RoomDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaxOccupancy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaxOccupancy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAvailable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsAvailable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RoomPhoto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RoomPhoto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RoomsAvailable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RoomsAvailable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RoomsTaken)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RoomsTaken)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Location.LocationName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Location.LocationName)
-        </dd>
-
-    </dl>
+<div class="home">
+    <div class="background_image" style="background-image:url(../../Content/images/booking.jpg)"></div>
+    <div class="home_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="home_content text-center">
+                        <div class="home_title">@Model.RoomType</div>
+                            <div class="booking_form_container">
+                                <form action="#" class="booking_form" id="booking_form">
+                                    <div class="d-flex flex-xl-row flex-column align-items-start justify-content-start">
+                                        <div class="booking_input_container d-flex flex-row align-items-start justify-content-start flex-wrap">
+                                            <div><input type="text" class="datepicker booking_input booking_input_a booking_in" placeholder="Check in" required="required"></div>
+                                            <div><input type="text" class="datepicker booking_input booking_input_a booking_out" placeholder="Check out" required="required"></div>
+                                            <div><input type="number" class="booking_input booking_input_b" placeholder="Guests" required="required"></div>
+                                            <div><input type="number" class="booking_input booking_input_b" placeholder="Room" required="required"></div>
+                                        </div>
+                                        <div><button class="booking_button trans_200">Book Now</button></div>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RoomId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="container">
+    <br />
+    <div class="details">
+        <div class="container">
+            <div class="row">
+
+                <!-- Details Image -->
+                <div class="col-xl-7 col-lg-6">
+                    <div class="details_image">
+                        <div class="background_image" style="background-image:url(../../Content/images/rooms/@Model.RoomPhoto)"></div>
+                    </div>
+                </div>
+
+                <!-- Details Content -->
+                <div class="col-xl-5 col-lg-6">
+                    <div class="details_content">
+                        <div class="details_title">@Model.RoomType</div>
+                        <div class="details_list">
+                            <ul>
+                                <li>@Model.RoomDescription
+                            </ul>
+                        </div>
+                        <div>
+                            <br />
+                            <h6>$@Model.Price.ToString("G29")/Night</h6>
+                        </div>
+                        <div>
+                            Max Occupancy: <h4>@Model.MaxOccupancy</h4>
+
+                        </div>
+                        <div class="book_now_button"><a href="#">Book Now</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <hr />
+        <div class="row">
+             @if (User.IsInRole("Admin"))
+             {
+                <div class=" col-md-3 col-lg-2">
+                    <div class="button button_1"><a href="@Url.Action("Edit", "Rooms", new { id = Model.RoomId })">Edit</a></div>
+                    <br /><br />
+                </div>
+                <div class=" col-md-3 col-lg-8">
+                    <div class="button button_3"><a href="@Url.Action("Delete", "Rooms", new { id = Model.RoomId })">Delete</a></div>
+                    <br /><br />
+                </div>
+             }
+            <div class="col-md-9 col-lg-2">
+                <div class="button button_4"><a href="@Url.Action("Index", "Rooms",  new { id = Model.LocationId })">Back to Rooms</a></div>
+                <br /><br />
+            </div>
+
+
+        </div>
+    </div>
+</div>

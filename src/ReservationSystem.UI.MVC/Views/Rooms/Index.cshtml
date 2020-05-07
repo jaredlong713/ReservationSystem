@@ -11,46 +11,23 @@
             <div class="row">
                 <div class="col">
                     <div class="home_content text-center">
-                        <div class="home_title">The @Model.FirstOrDefault().Location.LocationName</div>
-                        <div class="booking_form_container">
-                            <form action="#" class="booking_form" id="booking_form">
-                                <div class="d-flex flex-xl-row flex-column align-items-start justify-content-start">
-                                    <div class="booking_input_container d-flex flex-row align-items-start justify-content-start flex-wrap">
-                                        <div><input type="text" class="datepicker booking_input booking_input_a booking_in" placeholder="Check in" required="required"></div>
-                                        <div><input type="text" class="datepicker booking_input booking_input_a booking_out" placeholder="Check out" required="required"></div>
-                                        <div><input type="number" class="booking_input booking_input_b" placeholder="Children" required="required"></div>
-                                        <div><input type="number" class="booking_input booking_input_b" placeholder="Room" required="required"></div>
-                                    </div>
-                                    <div><button class="booking_button trans_200">Book Now</button></div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Booking -->
-
-<div class="booking">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <!-- Booking Slider -->
-                <div class="booking_slider_container">
-                    <div class="owl-carousel owl-theme booking_slider">
-                        @foreach (var item in Model)
+                        <div class="home_title">@ViewBag.LocationName</div>
+                        @if (ViewBag.LocationName != "The River")
                         {
-                            <!-- Slide -->
-                            <div class="booking_item">
-                                <div class="background_image" style="background-image:url(../../Content/images/rooms/@item.RoomPhoto)"></div>
-                                <div class="booking_overlay trans_200"></div>  
-                                <div class="booking_price">$@item.Price.ToString("G29")/Night</div>
-                                <div class="booking_link"><a href="booking.html">@item.RoomType</a></div>
+                            <div class="booking_form_container">
+                                <form action="#" class="booking_form" id="booking_form">
+                                    <div class="d-flex flex-xl-row flex-column align-items-start justify-content-start">
+                                        <div class="booking_input_container d-flex flex-row align-items-start justify-content-start flex-wrap">
+                                            <div><input type="text" class="datepicker booking_input booking_input_a booking_in" placeholder="Check in" required="required"></div>
+                                            <div><input type="text" class="datepicker booking_input booking_input_a booking_out" placeholder="Check out" required="required"></div>
+                                            <div><input type="number" class="booking_input booking_input_b" placeholder="Children" required="required"></div>
+                                            <div><input type="number" class="booking_input booking_input_b" placeholder="Room" required="required"></div>
+                                        </div>
+                                        <div><button class="booking_button trans_200">Book Now</button></div>
+                                    </div>
+                                </form>
                             </div>
-                        }        
+                        }
                      </div>
                 </div>
             </div>
@@ -58,71 +35,59 @@
     </div>
 </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RoomDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaxOccupancy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsAvailable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoomPhoto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoomsAvailable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoomsTaken)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location.LocationName)
-        </th>
-        <th></th>
-    </tr>
+<!-- Booking -->
+<body>
+    <div class="booking">
+        <div class="container">
+            <div class="row justify-content-center">
+                <h3>Locations</h3>
+                <div class="col-lg-4">
+                    @using (Html.BeginForm("locationIndex", "Rooms", FormMethod.Post, new { @name = "LocationForm" }))
+                    {
+                        @Html.DropDownList("LocationId", null, "Please select", new { @class = "form-control", @id = "ddlLocation" })
+                    }
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.LocationName != "The River")
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <!-- Booking Slider -->
+                        <div class="booking_slider_container">
+                            <div class="owl-carousel owl-theme booking_slider">
+                                @foreach (var item in Model)
+                                {
+                                    <!-- Slide -->
+                                    <div class="booking_item">
+                                        <div class="background_image" style="background-image:url(../../Content/images/rooms/@item.RoomPhoto)"></div>
+                                        <div class="booking_overlay trans_200"></div>
+                                        <div class="booking_price">$@item.Price.ToString("G29")/Night</div>
+                                        <div class="booking_link"><a href="@Url.Action("Details", "Rooms", new { id = item.RoomId })">@item.RoomType</a></div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
 
-    @foreach (var item in Model)
+    </div>
+    @if (User.IsInRole("Admin"))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxOccupancy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAvailable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomPhoto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomsAvailable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomsTaken)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.LocationName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.RoomId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.RoomId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.RoomId })
-            </td>
-        </tr>
+        <div class="row justify-content-center">
+            <div>
+                <div class="button button_1"><a href="@Url.Action("Create", "Rooms")">Add New Room</a></div>
+            </div>
+        </div>
     }
 
-</table>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("body").on("change", "#ddlLocation", function () {
+            document.forms["LocationForm"].submit();
+        });
+    </script>
+</body>

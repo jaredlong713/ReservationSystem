@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,19 +16,29 @@ namespace ReservationSystem.UI.MVC.Controllers
         private ReservationEntities db = new ReservationEntities();
 
         // GET: Rooms
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id)
         {
-            dynamic rooms = null;
-
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+           
             if (id != null)
             {
-                rooms = db.Rooms.Include(r => r.Location).Where(r => r.LocationId == id).ToList();
+                var rooms = db.Rooms.Include(r => r.Location).Where(r => r.LocationId == id).ToList();
+                ViewBag.LocationName = "The " + rooms.FirstOrDefault().Location.LocationName;
+                return View(rooms);
+
             } else
             {
-                rooms = db.Rooms.Include(r => r.Location).ToList();
+                ViewBag.LocationName = "The River";
+                var rooms = db.Rooms.Include(r => r.Location).ToList();
+                return View(rooms);
             }
 
-            return View(rooms);
+        }
+
+        // GET: Rooms
+        public ActionResult locationIndex([Bind(Include = "LocationName, LocationId")] Location location)
+        {
+            return RedirectToAction("Index", new { id = location.LocationId });
         }
 
         // GET: Rooms/Details/5
@@ -110,13 +121,40 @@ namespace ReservationSystem.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RoomId,LocationId,RoomDescription,Price,MaxOccupancy,IsAvailable,RoomPhoto,RoomsAvailable,RoomsTaken")] Room room)
+        public ActionResult Edit([Bind(Include = "RoomId,LocationId,RoomType,RoomDescription,Price,MaxOccupancy,IsAvailable,RoomPhoto,RoomsAvailable,RoomsTaken")] Room room, HttpPostedFileBase roomPhoto)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(room).State = EntityState.Modified;
+                string image = string.Empty;
+
+                if (roomPhoto != null)
+                {
+                    image = roomPhoto.FileName;
+                    string ext = image.Substring(image.LastIndexOf("."));
+                    string[] okExtentions = { ".jpg", ".jpeg", ".png" };
+
+                    if (okExtentions.Contains(ext.ToLower()))
+                    {
+                        image = Guid.NewGuid() + ext;
+
+                        roomPhoto.SaveAs
+                            (Server.MapPath("~/Content/images/family/" + image));
+                    }
+
+                    room.RoomPhoto = image;
+
+                }
+                else
+                {
+                    var currentRoom = db.Rooms.Where(r => r.RoomId == room.RoomId).FirstOrDefault();
+                    room.RoomPhoto = currentRoom.RoomPhoto;
+                }
+                //Having to use the AddOrUpdate vs the EntityState.Modified due to this error. 
+                //Attaching an entity of type 'ReservationSystem.DATA.EF.Room' failed because another entity of 
+                //the same type already has the same primary key value.
+                db.Set<Room>().AddOrUpdate(room);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = room.LocationId });
             }
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName", room.LocationId);
             return View(room);
@@ -134,6 +172,11 @@ namespace ReservationSystem.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+            if (room.Reservations.Count > 0)
+            {
+                ViewBag.Error = "*Room currently has reservations. Please remove those before proceeding. ";
+            }
+
             return View(room);
         }
 
