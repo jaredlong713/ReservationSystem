@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6bb27f0ce3e0480dbc28df4b5f028bbd" Name="Diagram1">
-        <EntityTypeShape EntityType="ReservationSystemModel.AspNetUser" Width="1.5" PointX="3.5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReservationSystemModel.Location" Width="1.5" PointX="10.5" PointY="1.5" IsExpanded="true" />
+      <Diagram DiagramId="b7bd0316685642cd9d354db7ef5c9750" Name="Diagram1">
+        <EntityTypeShape EntityType="ReservationSystemModel.AspNetUser" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReservationSystemModel.Location" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ReservationSystemModel.Reservation" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReservationSystemModel.Room" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReservationSystemModel.UserDetail" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReservationSystemModel.UserFamilyMember" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReservationSystemModel.Room" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReservationSystemModel.UserDetail" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReservationSystemModel.UserFamilyMember" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="ReservationSystemModel.FK_Rooms_Locations" ManuallyRouted="false" />
         <AssociationConnector Association="ReservationSystemModel.FK_Reservations_Rooms" ManuallyRouted="false" />
         <AssociationConnector Association="ReservationSystemModel.FK_Reservations_UserFamilyMembers" ManuallyRouted="false" />

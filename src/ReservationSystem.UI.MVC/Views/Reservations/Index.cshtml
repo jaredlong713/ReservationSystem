@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ReservationSystem.DATA.EF.Reservation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="home">
+    <div class="background_image" style="background-image:url(/Content/images/Location.jpg)"></div>
+    <div class="home_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="home_content text-center">
+                        <div class="home_title">Reservations</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    <table class="table">
+        <tr>
+            <th>
+                Number of Guests
+            </th>
+            <th>
+                Date Added
+            </th>
+            <th>
+                Active
+            </th>
+            <th>
+                Check In
+            </th>
+            <th>
+                Check Out
+            </th>
+            <th>
+                Name on Reservation
+            </th>
+            <th>
+                Manage
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfGuests)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationStartDate.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationEndDate.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserFamilyMember.MemberName)
+                </td>
+                <td>
+                  @Html.ActionLink("Delete", "Delete", new { id = item.ReservationId })
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>

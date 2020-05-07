@@ -22,6 +22,7 @@ namespace ReservationSystem.DATA.EF
     
         public int RoomId { get; set; }
         public int LocationId { get; set; }
+        public string RoomType { get; set; }
         public string RoomDescription { get; set; }
         public decimal Price { get; set; }
         public byte MaxOccupancy { get; set; }
@@ -29,7 +30,6 @@ namespace ReservationSystem.DATA.EF
         public string RoomPhoto { get; set; }
         public int RoomsAvailable { get; set; }
         public int RoomsTaken { get; set; }
-        public string RoomType { get; set; }
     
         public virtual Location Location { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

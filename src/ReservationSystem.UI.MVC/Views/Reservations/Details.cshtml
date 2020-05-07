@@ -1,0 +1,66 @@
+﻿@model ReservationSystem.DATA.EF.Reservation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfGuests)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfGuests)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAdded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservationStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReservationStartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservationEndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReservationEndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserFamilyMember.MemberName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserFamilyMember.MemberName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

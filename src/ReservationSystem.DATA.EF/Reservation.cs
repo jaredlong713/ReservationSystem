@@ -16,13 +16,12 @@ namespace ReservationSystem.DATA.EF
     {
         public int ReservationId { get; set; }
         public int CustomerId { get; set; }
-        public System.DateTime ReservationDate { get; set; }
-        public int ReservationLength { get; set; }
+        public System.DateTime ReservationStartDate { get; set; }
+        public System.DateTime ReservationEndDate { get; set; }
         public int RoomId { get; set; }
         public byte NumberOfGuests { get; set; }
         public System.DateTime DateAdded { get; set; }
-        public int IsActive { get; set; }
-        public string SpecialRequests { get; set; }
+        public bool IsActive { get; set; }
     
         public virtual Room Room { get; set; }
         public virtual UserFamilyMember UserFamilyMember { get; set; }

@@ -44,6 +44,7 @@ namespace ReservationSystem.UI.MVC.Controllers
         // GET: Rooms/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -19,8 +19,21 @@ namespace ReservationSystem.UI.MVC.Controllers
         // GET: UserFamilyMembers
         public ActionResult Index()
         {
-            var userFamilyMembers = db.UserFamilyMembers.Include(u => u.UserDetail);
-            return View(userFamilyMembers.ToList());
+
+            string user = User.Identity.GetUserId();
+
+            if (User.IsInRole("Customer"))
+            {
+                var userFamilyMembers = db.UserFamilyMembers.Include(u => u.UserDetail).Where(u => u.UserId == user);
+                return View(userFamilyMembers.ToList());
+            }
+            else
+            {
+                var userFamilyMembers = db.UserFamilyMembers.Include(u => u.UserDetail);
+                return View(userFamilyMembers.ToList());
+            }
+
+
         }
 
         // GET: UserFamilyMembers/Details/5

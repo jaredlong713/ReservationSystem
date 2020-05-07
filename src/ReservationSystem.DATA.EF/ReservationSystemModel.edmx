@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ReservationSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ReservationSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -39,13 +39,12 @@
           </Key>
           <Property Name="ReservationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
-          <Property Name="ReservationDate" Type="date" Nullable="false" />
-          <Property Name="ReservationLength" Type="int" Nullable="false" />
+          <Property Name="ReservationStartDate" Type="date" Nullable="false" />
+          <Property Name="ReservationEndDate" Type="date" Nullable="false" />
           <Property Name="RoomId" Type="int" Nullable="false" />
           <Property Name="NumberOfGuests" Type="tinyint" Nullable="false" />
           <Property Name="DateAdded" Type="date" Nullable="false" />
-          <Property Name="IsActive" Type="int" Nullable="false" />
-          <Property Name="SpecialRequests" Type="varchar" MaxLength="250" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Rooms">
           <Key>
@@ -152,7 +151,8 @@
             <End Role="UserFamilyMembers" EntitySet="UserFamilyMembers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReservationSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,13 +191,12 @@
           </Key>
           <Property Name="ReservationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="ReservationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ReservationLength" Type="Int32" Nullable="false" />
+          <Property Name="ReservationStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ReservationEndDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="RoomId" Type="Int32" Nullable="false" />
           <Property Name="NumberOfGuests" Type="Byte" Nullable="false" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IsActive" Type="Int32" Nullable="false" />
-          <Property Name="SpecialRequests" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Room" Relationship="Self.FK_Reservations_Rooms" FromRole="Reservations" ToRole="Rooms" />
           <NavigationProperty Name="UserFamilyMember" Relationship="Self.FK_Reservations_UserFamilyMembers" FromRole="Reservations" ToRole="UserFamilyMembers" />
         </EntityType>
@@ -207,6 +206,7 @@
           </Key>
           <Property Name="RoomId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LocationId" Type="Int32" Nullable="false" />
+          <Property Name="RoomType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RoomDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="MaxOccupancy" Type="Byte" Nullable="false" />
@@ -216,7 +216,6 @@
           <Property Name="RoomsTaken" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Location" Relationship="Self.FK_Rooms_Locations" FromRole="Rooms" ToRole="Locations" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_Rooms" FromRole="Rooms" ToRole="Reservations" />
-          <Property Name="RoomType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UserDetail">
           <Key>
@@ -352,22 +351,21 @@
               <MappingFragment StoreEntitySet="Reservations">
                 <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
-                <ScalarProperty Name="ReservationLength" ColumnName="ReservationLength" />
+                <ScalarProperty Name="ReservationStartDate" ColumnName="ReservationStartDate" />
+                <ScalarProperty Name="ReservationEndDate" ColumnName="ReservationEndDate" />
                 <ScalarProperty Name="RoomId" ColumnName="RoomId" />
                 <ScalarProperty Name="NumberOfGuests" ColumnName="NumberOfGuests" />
                 <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="SpecialRequests" ColumnName="SpecialRequests" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rooms">
             <EntityTypeMapping TypeName="ReservationSystemModel.Room">
               <MappingFragment StoreEntitySet="Rooms">
-                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
                 <ScalarProperty Name="RoomId" ColumnName="RoomId" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
                 <ScalarProperty Name="RoomDescription" ColumnName="RoomDescription" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="MaxOccupancy" ColumnName="MaxOccupancy" />

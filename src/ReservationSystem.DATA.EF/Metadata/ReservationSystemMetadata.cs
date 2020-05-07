@@ -67,13 +67,14 @@ namespace ReservationSystem.DATA.EF
         public class ReservationMetadata
         {
             [DisplayFormat(DataFormatString = "{0:d}")]
-            [Display(Name = "Reservation Date")]
-            [Required(ErrorMessage = "* Reservation Date is required")]
-            public System.DateTime ReservationDate { get; set; }
+            [Display(Name = "Check In")]
+            [Required(ErrorMessage = "* Check In is required")]
+            public System.DateTime ReservationStartDate { get; set; }
 
-            [Display(Name = "Length of Stay")]
-            [Required(ErrorMessage = "* Reservation Length is required")]
-            public int ReservationLength { get; set; }
+            [DisplayFormat(DataFormatString = "{0:d}")]
+            [Display(Name = "Check Out")]
+            [Required(ErrorMessage = "* Check Out is required")]
+            public System.DateTime ReservationEndDate { get; set; }
 
             [Display(Name = "Room")]
             [Required(ErrorMessage = "* Room is required")]
